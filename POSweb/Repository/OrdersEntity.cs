@@ -51,5 +51,31 @@ namespace POS.Repository
         [Column("ship_country")]
         public String ShipCountry { get; set; }
 
+        public ICollection<OrderDetailEntity> orderDetailsEntities { get; set; }
+
+        public OrdersEntity(POS.ViewModel.OrderModel model)
+        {
+            //CustomersId = model.CustomersId;
+            EmployeId = model.EmployeesId;
+            OrderDate = model.OrderDate;
+            RequireDate = model.RequiredDate;
+            ShippedDate = model.ShippedDate;
+            ShipVia = model.ShipVia;
+            Freight = model.Freight;
+            ShipName = model.ShipName;
+            ShipAddress = model.ShipAddress;
+            ShipCity = model.ShipCity;
+            ShipRegion = model.ShipRegion;
+            ShipPostalCode = model.ShipPostalCode;
+            ShipCountry = model.ShipCountry;
+
+
+        }
+
+        public OrdersEntity()
+        {
+
+        }
+
     }
 }

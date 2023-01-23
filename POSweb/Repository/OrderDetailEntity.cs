@@ -15,44 +15,44 @@ namespace POS.Repository
         [Column("id")]
         public int Id { get; set; }
 
-        public CustomerEntity Customers { get; set; }
+        [Column("order_id")]
+        public int OrdersId { get; set; }
 
-        public EmployeEntity Employees { get; set; }
+        [Required]
+        public OrdersEntity Orders { get; set; }
 
-        [Column("order_date")]
-        public DateTime OrderDate { get; set; }
+        [Column("product_id")]
+        public int ProductId { get; set; }
 
-        [Column("required_date")]
-        public DateTime RequiredDate { get; set; }
+        [Required]
+        public ProductEntity Product { get; set; }
 
-        [Column("shipped_date")]
-        public DateTime ShippedDate { get; set; }
+        [Required]
+        [Column("unit_price")]
+        public double UnitPrice { get; set; }
 
-        [Column("ship_via")]
-        public int ShipVia { get; set; }
+        [Required]
+        [Column("quantity")]
+        public long Quantity { get; set; }
 
-        [Column("freight")]
-        public int Freight { get; set; }
+        [Required]
+        [Column("discount")]
+        public double Discount { get; set; }
 
-        [Column("ship_name")]
-        public string ShipName { get; set; }
+        public OrderDetailEntity(POS.ViewModel.OrderDetailModel model)
+        {
+            OrdersId = model.OrdersId;
+            ProductId = model.ProductId;
+            UnitPrice = model.UnitPrice;
+            Quantity = model.Quantity;
+            Discount = model.Discount;
 
-        [Column("ship_address")]
-        public string ShipAddress { get; set; }
+        }
 
-        [Column("ship_city")]
-        public string ShipCity { get; set; }
+        public OrderDetailEntity()
+        {
 
-        [Column("ship_region")]
-        public string ShipRegion { get; set; }
-
-        [Column("ship_postal_code")]
-        public string ShipPostalCode { get; set; }
-
-        [Column("ship_country")]
-        public string ShipCountry { get; set; }
-
-        public ICollection<OrderDetailEntity> orderDetailEntities { get; set; }
+        }
 
     }
 }

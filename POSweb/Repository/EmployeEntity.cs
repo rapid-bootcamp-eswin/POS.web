@@ -64,5 +64,31 @@ namespace POS.Repository
         public string PhotoPath { get; set; }
 
         public ICollection<OrdersEntity> orderEntities { get; set; }
+
+        public EmployeEntity(POS.ViewModel.EmployeeModel model)
+        {
+            LastName = model.LastName;
+            FirstName = model.FirstName;
+            Title = model.Title;
+            TitleOfCourtesy = model.TitleOfCourtesy;
+            BirthDate = model.BirthDate;
+            HireDate = model.HireDate;
+            Adress = model.Address;
+            City = model.City;
+            Region = model.Region;
+            PostalCode = model.PostalCode;
+            Country = model.Country;
+            HomePhone = model.HomePhone;
+            Extension = model.Extension;
+          //  Photo = model.Photo;
+            Notes = model.Notes;
+            Reports = model.ReportsTo;
+            PhotoPath = model.PhotoPath;
+        }
+
+        public EmployeEntity()
+        {
+
+        }
     }
 }

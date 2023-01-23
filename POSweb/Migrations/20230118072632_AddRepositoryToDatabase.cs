@@ -188,8 +188,8 @@ namespace POS.web.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     product_name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    SupplierId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    supplier_id = table.Column<int>(type: "int", nullable: false),
+                    category_id = table.Column<int>(type: "int", nullable: false),
                     quantity_per_unit = table.Column<long>(type: "bigint", nullable: false),
                     unit_price = table.Column<double>(type: "double", nullable: false),
                     unit_in_stock = table.Column<long>(type: "bigint", nullable: false),
@@ -201,14 +201,14 @@ namespace POS.web.Migrations
                 {
                     table.PrimaryKey("PK_tbl_product", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tbl_product_tbl_category_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_tbl_product_tbl_category_category_id",
+                        column: x => x.category_id,
                         principalTable: "tbl_category",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tbl_product_tbl_supplier_SupplierId",
-                        column: x => x.SupplierId,
+                        name: "FK_tbl_product_tbl_supplier_supplier_id",
+                        column: x => x.supplier_id,
                         principalTable: "tbl_supplier",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -221,75 +221,39 @@ namespace POS.web.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CustomersId = table.Column<int>(type: "int", nullable: false),
-                    EmployeesEmployeId = table.Column<int>(type: "int", nullable: false),
-                    order_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    required_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    shipped_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ship_via = table.Column<int>(type: "int", nullable: false),
-                    freight = table.Column<int>(type: "int", nullable: false),
-                    ship_name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ship_address = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ship_city = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ship_region = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ship_postal_code = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ship_country = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    OrderDetailEntityId = table.Column<int>(type: "int", nullable: true),
-                    ProductEntityId = table.Column<int>(type: "int", nullable: true)
+                    order_id = table.Column<int>(type: "int", nullable: false),
+                    product_id = table.Column<int>(type: "int", nullable: false),
+                    unit_price = table.Column<double>(type: "double", nullable: false),
+                    quantity = table.Column<long>(type: "bigint", nullable: false),
+                    discount = table.Column<double>(type: "double", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tbl_order_detail", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tbl_order_detail_tbl_cutomers_CustomersId",
-                        column: x => x.CustomersId,
-                        principalTable: "tbl_cutomers",
+                        name: "FK_tbl_order_detail_tbl_orders_order_id",
+                        column: x => x.order_id,
+                        principalTable: "tbl_orders",
+                        principalColumn: "order_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tbl_order_detail_tbl_product_product_id",
+                        column: x => x.product_id,
+                        principalTable: "tbl_product",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_tbl_order_detail_tbl_employe_EmployeesEmployeId",
-                        column: x => x.EmployeesEmployeId,
-                        principalTable: "tbl_employe",
-                        principalColumn: "employe_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_tbl_order_detail_tbl_order_detail_OrderDetailEntityId",
-                        column: x => x.OrderDetailEntityId,
-                        principalTable: "tbl_order_detail",
-                        principalColumn: "id");
-                    table.ForeignKey(
-                        name: "FK_tbl_order_detail_tbl_product_ProductEntityId",
-                        column: x => x.ProductEntityId,
-                        principalTable: "tbl_product",
-                        principalColumn: "id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tbl_order_detail_CustomersId",
+                name: "IX_tbl_order_detail_order_id",
                 table: "tbl_order_detail",
-                column: "CustomersId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tbl_order_detail_EmployeesEmployeId",
+                name: "IX_tbl_order_detail_product_id",
                 table: "tbl_order_detail",
-                column: "EmployeesEmployeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_tbl_order_detail_OrderDetailEntityId",
-                table: "tbl_order_detail",
-                column: "OrderDetailEntityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_tbl_order_detail_ProductEntityId",
-                table: "tbl_order_detail",
-                column: "ProductEntityId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tbl_orders_CustomerEntityId",
@@ -302,14 +266,14 @@ namespace POS.web.Migrations
                 column: "EmployeEntityEmployeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tbl_product_CategoryId",
+                name: "IX_tbl_product_category_id",
                 table: "tbl_product",
-                column: "CategoryId");
+                column: "category_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tbl_product_SupplierId",
+                name: "IX_tbl_product_supplier_id",
                 table: "tbl_product",
-                column: "SupplierId");
+                column: "supplier_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

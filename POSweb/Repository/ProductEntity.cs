@@ -18,7 +18,13 @@ namespace POS.Repository
         [Column("product_name")]
         public string ProductName { get; set; }
 
+        [Column("supplier_id")]
+        public int SupplierId { get; set; }
+
         public SupplierEntity Supplier { get; set; }
+
+        [Column("category_id")]
+        public int CategoryId { get; set; }
 
         public CategoryEntity Category { get; set; }
 
@@ -41,6 +47,25 @@ namespace POS.Repository
         public bool Discontinued { get; set; }
 
         public ICollection<OrderDetailEntity> orderDetailEntities { get; set; }
+
+        public ProductEntity(POS.ViewModel.ProductModel model)
+        {
+            ProductName = model.ProductName;
+            SupplierId = model.SupplierId;
+            CategoryId = model.CategoryId;
+            QuantityPerUnit = model.QuantityPerUnit;
+            UnitPrice = model.UnitPrice;
+            UnitInStock = model.UnitInStock;
+            UnitOnOrder = model.UnitOnOrder;
+            ReorderLevel = model.ReorderLevel;
+            Discontinued = model.Discontinued;
+
+        }
+
+        public ProductEntity()
+        {
+
+        }
 
     }
 }
